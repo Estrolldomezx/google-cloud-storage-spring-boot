@@ -41,4 +41,15 @@ public class GcsController {
 
     return ResponseEntity.ok(file.getName() + " added.");
   }
+
+  @GetMapping("download")
+  public ResponseEntity<Resource> downloadFile(
+          @RequestParam String fileName)  {
+
+    ByteArrayResource resource = gcsService.downloadFile(fileName);
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(HttpHeaders.CONTENT_DISPOSITION,
+            "attachment; filename=\"" + fileName + "\"");
+    return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).headers(headers).body(resource);
+  }
 }

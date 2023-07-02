@@ -42,4 +42,13 @@ public class GcsService {
                 setContentType(file.getContentType()).build();
         Blob blob = storage.create(blobInfo,file.getBytes());
     }
+
+    public ByteArrayResource downloadFile(String fileName) {
+
+        Blob blob = storage.get(bucketName, fileName);
+        ByteArrayResource resource = new ByteArrayResource(
+                blob.getContent());
+
+        return resource;
+    }
 }
