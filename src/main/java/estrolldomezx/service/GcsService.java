@@ -34,4 +34,12 @@ public class GcsService {
         }
         return list;
     }
+
+    public void uploadFile(MultipartFile file) throws IOException {
+
+        BlobId blobId = BlobId.of(bucketName, file.getOriginalFilename());
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).
+                setContentType(file.getContentType()).build();
+        Blob blob = storage.create(blobInfo,file.getBytes());
+    }
 }
