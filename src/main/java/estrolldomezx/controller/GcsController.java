@@ -52,4 +52,12 @@ public class GcsController {
             "attachment; filename=\"" + fileName + "\"");
     return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM).headers(headers).body(resource);
   }
+
+  @DeleteMapping("delete")
+  public ResponseEntity<String> deleteFile(
+          @RequestParam String fileName) {
+
+    gcsService.deleteFile(fileName);
+    return ResponseEntity.ok(fileName + " deleted.");
+  }
 }

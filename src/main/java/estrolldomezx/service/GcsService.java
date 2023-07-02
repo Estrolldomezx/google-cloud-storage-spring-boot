@@ -51,4 +51,9 @@ public class GcsService {
 
         return resource;
     }
+
+    public boolean deleteFile(String fileName) {
+        Blob blob = storage.get(bucketName, fileName);
+        return blob.delete();
+    }
 }
